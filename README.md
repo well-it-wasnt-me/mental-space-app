@@ -5,7 +5,7 @@ So i decided to start my project "Mental Space" where it aim to help the user to
 
 This app, that initially i started as private thing, is now Public with a creative common license and i truly hope to find some good contributors in order to make this project BETTER.
 
-The back-end part is reachable (HERE)[#]
+The back-end part is reachable [HERE](https://github.com/pazDontExist/mental-space-backend)
 
 # STACK
 - Ionic 6
