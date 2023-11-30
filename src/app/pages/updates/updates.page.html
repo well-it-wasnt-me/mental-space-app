@@ -1,0 +1,22 @@
+<app-sidebar></app-sidebar>
+<ion-content class="splash-background">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content style="background-color: white;"
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="{{'PULLING_TEXT' | translate}}"
+      refreshingSpinner="circles"
+      refreshingText="{{'REFRESHING_TEXT' | translate}}">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="container">
+    <div class="logo animated fadeInUp">
+      <div class="logo-image"><img src="../../assets/mental-space-logo/png/logo.png" class="width-100"/></div>
+      <div class="below-text">{{statusText}}</div>
+    </div>
+
+  </div>
+  <div class="company-logo">
+    v {{appVersion}}
+  </div>
+</ion-content>
+<app-footerbtn></app-footerbtn>

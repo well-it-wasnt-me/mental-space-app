@@ -1,0 +1,52 @@
+<app-sidebar></app-sidebar>
+<ion-header>
+  <ion-toolbar class="page-background">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-back-button text="Indietro" style="color: white !important;" default-href="/dashboard"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="color:white !important;">
+      {{"LBL_MY_OBJ" | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="profile page-background">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content style="background-color: white;"
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="{{'PULLING_TEXT' | translate}}"
+      refreshingSpinner="circles"
+      refreshingText="{{'REFRESHING_TEXT' | translate}}">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="container">
+    <div class="body">
+      <form class="modern">
+      <div class="setting-box" *ngFor="let obj of objectives | keyvalue ">
+        <div class="label">
+          {{'LBL_OBJ_FROM' | translate}} {{obj.value['ts_obiettivo'] | date: 'dd/MM/yyyy H:mm:ss'}}
+        </div>
+        <div class="value">
+          <input type="text" class="form-control" style="border-bottom: 0px solid #444 !important;" value="{{obj.value['obiettivo']}}">
+          <!--<a class="edit-btn" (click)="updateObiettivo(obj.value['ob_id'], obj.value['obiettivo'])"><fa-icon icon="save"></fa-icon></a>-->
+        </div>
+
+        <a class="edit-btn" (click)="deleteObiettivo(obj.value['ob_id'])"><fa-icon icon="delete-left"></fa-icon> {{"DELETE" | translate}}</a>
+      </div>
+      </form>
+    </div>
+
+    <div class="bigtitle">
+       {{"NEW_OBJECTIVE" | translate}}
+    </div>
+      <form #form="ngForm" (ngSubmit)="submitForm(form)" class="modern activities" novalidate>
+        <input type="text" class="form-control" required [(ngModel)]="obiettivo" ngControl="obiettivo" name="obiettivo">
+        <div class="value"><ion-button expand="full" type="submit">{{"LBL_ADD" | translate}}</ion-button></div>
+      </form>
+
+
+  </div>
+
+</ion-content>
+<app-footerbtn></app-footerbtn>

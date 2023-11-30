@@ -1,0 +1,124 @@
+<app-sidebar></app-sidebar>
+<ion-header>
+  <ion-toolbar class="page-background">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-back-button text="Indietro" style="color: white !important;" default-href="/dashboard"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="color:white !important;">
+      {{"LBL_DOC"|translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="profile page-background">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content style="background-color: white;"
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="{{'PULLING_TEXT' | translate}}"
+      refreshingSpinner="circles"
+      refreshingText="{{'REFRESHING_TEXT' | translate}}">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="container">
+    <div class="header">
+      <div class="row">
+        <ion-segment (ionChange)="segmentChanged($event)" value="doc_profile" color="light">
+          <ion-segment-button value="doc_profile" color="light">
+            <ion-label>
+              {{"LBL_DOC_DETAIL" | translate}}
+            </ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="files" color="light">
+            <ion-label>
+              {{"LBL_SHARED_FILE" | translate}}
+            </ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+    </div>
+    <div *ngIf="segment === 'doc_profile'">
+      <div class="top-part">
+        <div class="profile-pic"><img src="{{myDoc.photo || 'assets/icon/mental-space-website-favicon-color.png'}}" class="w-100" /></div>
+        <div class="name">{{myDoc.full_name || 'Non Ancora Scelto'}}</div>
+        <div *ngIf="myDoc.full_name.length > 0">
+          <div class="position"><fa-icon icon="mail-reply"></fa-icon>&nbsp; <a style="color: white;font-weight: bold;" href="mailto://{{myDoc.email}}">{{myDoc.email}}</a></div>
+          <div class="position"><fa-icon icon="location"></fa-icon>&nbsp; <a style="color: white;font-weight: bold;" href='https://maps.google.com/?q={{myDoc.address}}'>{{myDoc.address}}</a></div>
+          <div class="position"><fa-icon icon="phone"></fa-icon>&nbsp; <a style="color: white;font-weight: bold;" href='tel://{{myDoc.tel}}'>{{myDoc.tel}}</a></div>
+        </div>
+      </div>
+      <div class="activities" *ngIf="myDoc.full_name.length > 0">
+        <div class="box">
+          <div class="label">{{"LBL_COMPANY_NAME" | translate}}</div>
+          <div class="value">{{myDoc.rag_soc}}</div>
+        </div>
+
+        <div class="box">
+          <div class="label">{{"LBL_VAT_NUMBER" | translate}}</div>
+          <div class="value">{{myDoc.piva}}</div>
+        </div>
+
+        <div class="box">
+          <div class="label">{{"LBL_HOURLY_RATE" | translate}}</div>
+          <div class="value">{{myDoc.hr}} €</div>
+        </div>
+
+        <div class="box">
+          <div class="label">{{"LBL_PAYPAL_ADDRESS" | translate}}</div>
+          <div class="value">{{myDoc.paypal}}</div>
+        </div>
+
+        <ion-button (click)="scollegaMedico()" color="danger" expand="full">SCOLLEGA MEDICO</ion-button>
+
+      </div>
+
+    </div>
+    <ion-card-content *ngIf="myDoc.full_name.length === 0">
+      <form #form="ngForm" (ngSubmit)="submitInvitation(form)" novalidate>
+        <ion-item lines="full">
+          <ion-label position="floating">{{"LBL_MAIL_ADDRESS"| translate}}</ion-label>
+          <ion-input type="email" required [(ngModel)]="myDoc.email" ngControl="doc_email" name="doc_email" placeholder="indirizzo@email.it"></ion-input>
+        </ion-item>
+        <ion-button expand="full" type="submit">{{"LBL_INVITE"|translate}}</ion-button>
+      </form>
+    </ion-card-content>
+
+
+    <div *ngIf="segment === 'files'">
+      <div class="main-subtitle">{{"LBL_MY_FILES" | translate}}</div>
+      <ul class="report-list" *ngIf="fileLists.length === 0">
+        <li>
+          <div class="row">
+            <div class="col-6"><span class="name">{{"STILL_NOTHING" | translate}}</span></div>
+            <div class="col-6 text-right"><span class="date"></span></div>
+          </div>
+        </li>
+      </ul>
+      <ul class="report-list">
+        <li *ngFor="let file of fileLists | keyvalue">
+          <div class="row">
+            <div class="col-6"><span class="name">{{file.value}}</span></div>
+            <div class="col-6 text-right"><span class="date"><a (click)="downloadFile(file.value)"><fa-icon icon="download"></fa-icon> DOWNLOAD</a> | <a class="btn-danger"><fa-icon icon="delete-left"></fa-icon> ELIMINA</a></span></div>
+          </div>
+        </li>
+      </ul>
+
+
+        <p>{{"LBL_FILE_TO_UPLOAD" | translate}}
+          <input type="file" (change)="onFileChange($event)" name="file" id="file"/>
+        </p>
+
+        <ion-button color="light" expand="full" (click)="uploadFile()">{{"LBL_FILE_UPLOAD" | translate}}</ion-button>
+        <div *ngIf="totalToSend !== 0">
+          {{"LBL_TOT_TO_SEND" | translate}} {{totalToSend}}<br>
+          {{"LBL_TOT_SENT" | translate}} {{totalSent}}
+        </div>
+    </div>
+
+
+
+    </div>
+
+</ion-content>
+
+<app-footerbtn></app-footerbtn>

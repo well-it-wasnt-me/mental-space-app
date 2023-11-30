@@ -1,0 +1,174 @@
+<app-sidebar></app-sidebar>
+<ion-header>
+  <ion-toolbar class="page-background">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-back-button text="Indietro" style="color: white !important;" default-href="/dashboard"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <div style="color: white">{{"LBL_BEHAV" | translate}}</div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="page-background">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content style="background-color: white;"
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="{{'PULLING_TEXT' | translate}}"
+      refreshingSpinner="circles"
+      refreshingText="{{'REFRESHING_TEXT' | translate}}">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="container">
+    <div class="main-subtitle">{{"AVAIL_TEST" | translate}}</div>
+
+    <div class="list">
+      <div>
+        <div class="width-10 float-left"><div class="icon2"><img src="assets/icon/mental-space-website-favicon-color.png" width="236px" height="auto"/></div></div>
+        <div class="width-80 float-left"><div class="title">{{"IMPULSIVE_BEHAVIOUR_CHART" | translate}}</div>
+          <div class="subtitle"><a id="open-modal-comportamento" class="btn btn-sm btn-success" style="color: white;">{{"COMPILE" | translate}}</a></div></div>
+      </div>
+    </div>
+
+
+    <div class="main-subtitle">{{"HISTORY" | translate}}</div>
+    <div class="list" *ngFor="let apm of elenco_tests">
+
+      <div class="width-10 float-left"><div class="icon2"><img src="assets/icon/mental-space-website-favicon-color.png" /></div></div>
+      <div class="width-80 float-left"><div class="title">{{apm.data_compilazione | date: 'dd/MM/yyyy H:mm:ss'}} - {{"IMPULSIVE_BEHAVIOUR_CHART" | translate}}</div>
+        <div class="subtitle">{{"CHART_SUCCESSFULL_SENT" | translate}}</div>
+      </div>
+
+    </div>
+
+
+
+  </div>
+</ion-content>
+<ion-modal trigger="open-modal-comportamento">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="chiudiModal()">{{"CLOSE" | translate}}</ion-button>
+        </ion-buttons>
+        <ion-title>{{"MY_CHART" | translate}}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding page-background">
+      <ion-accordion-group expand="inset">
+        <ion-accordion value="zero">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"LBL_POINTS_INT" | translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ul>
+              <li>{{"LBL_0_POINT" | translate}}</li>
+              <li>{{"LBL_1_POINT" | translate}}</li>
+              <li>{{"LBL_2_POINT" | translate}}</li>
+              <li>{{"LBL_3_POINT" | translate}}</li>
+              <li>{{"LBL_4_POINT" | translate}}</li>
+              <li>{{"LBL_5_POINT" | translate}}</li>
+            </ul>
+          </div>
+        </ion-accordion>
+        <ion-accordion value="first">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"QUESTION_SELF_HARM" | translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="autolesivi_intenzione">{{"INTENTION" | translate}}</label>
+            <ion-range [(ngModel)]="autolesivi_intenzione" id="autolesivi_intenzione" [min]="0" [max]="5" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
+            <label for="autolesivi_azione">{{"ACTION_YES_NO" | translate}}</label><br>
+            <ion-toggle [(ngModel)]="autolesivi_azione" id="autolesivi_azione" [enableOnOffLabels]="true"></ion-toggle>
+          </div>
+        </ion-accordion>
+        <ion-accordion value="second">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"QUESTION_SUICIDE" | translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="suicidio_pensiero">{{"THOUGHT" | translate}}</label>
+            <ion-range [(ngModel)]="suicidio_pensiero" id="suicidio_pensiero" [min]="0" [max]="5" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
+            <label for="suicidio_azione">{{"ACTION_YES_NO" | translate}}</label><br>
+            <ion-toggle [(ngModel)]="suicidio_azione" id="suicidio_azione" [enableOnOffLabels]="true"></ion-toggle>
+          </div>
+        </ion-accordion>
+        <ion-accordion value="third">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"QUESTION_ALCOHOL" | translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="alcol_intenzione">{{"INTENTION" | translate}}</label>
+            <ion-range [(ngModel)]="alcol_intenzione" id="alcol_intenzione" [min]="0" [max]="5" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
+            <label for="alcol_uso">{{"USE_QT" | translate}}</label><br>
+            <input type="number" [(ngModel)]="alcol_uso" id="alcol_uso" class="form-control">
+          </div>
+        </ion-accordion>
+
+        <ion-accordion value="fourth">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"QUESTION_ILL_DRUG" | translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="droghe_intenzione">{{"INTENTION" | translate}}</label>
+            <ion-range [(ngModel)]="droghe_intenzione" id="droghe_intenzione" [min]="0" [max]="5" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
+            <label for="droghe_uso">{{"USE_QT" | translate}}</label><br>
+            <input type="number" [(ngModel)]="droghe_uso" id="droghe_uso" class="form-control">
+          </div>
+        </ion-accordion>
+
+        <ion-accordion value="fifth">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"QUESTION_PHARM" | translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="assunzione_farmaci">{{"PRESCRIBED_DRUG" | translate}}</label><br>
+            <ion-toggle [(ngModel)]="assunzione_farmaci" id="assunzione_farmaci" [enableOnOffLabels]="true"></ion-toggle>
+          </div>
+        </ion-accordion>
+
+
+        <ion-accordion value="sixth">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"QUESTION_BINGE" | translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="abbuffate_intenzione">{{"INTENTION" | translate}}</label>
+            <ion-range [(ngModel)]="abbuffate_intenzione" id="abbuffate_intenzione" [min]="0" [max]="5" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
+            <label for="abbuffate_azione">{{"ACTION_YES_NO" | translate}}</label><br>
+            <ion-toggle [(ngModel)]="abbuffate_azione" id="abbuffate_azione" [enableOnOffLabels]="true"></ion-toggle>
+          </div>
+        </ion-accordion>
+
+        <ion-accordion value="seventh">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"QUESTION_VOMIT" | translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="vomito_intenzione">{{"INTENTION" | translate}}</label>
+            <ion-range [(ngModel)]="vomito_intenzione" id="vomito_intenzione" [min]="0" [max]="5" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
+            <label for="vomito_azione">{{"ACTION_YES_NO" | translate}}</label><br>
+            <ion-toggle [(ngModel)]="vomito_azione" id="vomito_azione" [enableOnOffLabels]="true"></ion-toggle>
+          </div>
+        </ion-accordion>
+
+
+        <ion-accordion value="final">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"QUESTION_FINAL" | translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <p>{{"QUESTION_FINAL_DISCL" | translate}}</p>
+            <a class="btn btn-success btn-sm" style="color:white;" (click)="salvaScheda()">{{"SAVE" | translate}}</a>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<app-footerbtn></app-footerbtn>
+

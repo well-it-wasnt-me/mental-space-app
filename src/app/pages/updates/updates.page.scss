@@ -1,0 +1,46 @@
+/*
+* ----------------------------------------------------------------------------------------
+*  Splash screen
+* ----------------------------------------------------------------------------------------
+*/
+
+
+.splash-background {
+  --background: #11cc97;
+  width: 100%;
+  position:relative;
+}
+
+.container {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 250px;
+  margin-top: -30px;
+  text-align:center;
+}
+.logo .logo-image
+{
+  width:170px;
+  margin:auto;
+}
+.below-text
+{
+
+  font-size:24px;
+  color:#FFF;
+  margin-top:15px;
+}
+.company-logo {
+  width: 150px;
+  position: absolute;
+  bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0px;
+  right: 0px;
+}

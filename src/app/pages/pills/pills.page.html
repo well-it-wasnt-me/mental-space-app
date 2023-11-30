@@ -1,0 +1,154 @@
+<app-sidebar></app-sidebar>
+<ion-header>
+  <ion-toolbar class="page-background">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-back-button text="Indietro" style="color: white !important;" default-href="/dashboard"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <div style="color: white !important;"><a id="open-modal-pill"><fa-icon size="2x" icon="plus-square"></fa-icon></a></div>
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="color:white !important;">
+      {{"LBL_MY_DRUGS"| translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="page-background">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content style="background-color: white;"
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="{{'PULLING_TEXT' | translate}}"
+      refreshingSpinner="circles"
+      refreshingText="{{'REFRESHING_TEXT' | translate}}">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="container">
+  <div class="main-subtitle">{{"LBL_REGISTERED_DRUGS"| translate}}</div>
+    <div class="list" *ngIf="pills.length === 0">
+      <div>
+        <div class="width-10 float-left"><div class="icon"><img src="../../../assets/images/pill-capsule.png" class="w-100"/></div></div>
+        <div class="width-80 float-left"><div class="title">{{"STILL_NOTHING"| translate}}</div>
+          <div class="subtitle"><span>{{"LBL_DISCL_ADD_PILL" | translate}}</span></div></div>
+        <div class="width-10 float-left text-right">
+        </div>
+      </div>
+    </div>
+    <div class="list" *ngFor="let pill of pills | keyvalue">
+      <div class="width-10 float-left"><div class="icon"><img src="../../../assets/images/pill-capsule.png" class="w-100"/></div></div>
+      <div class="width-80 float-left"><div class="title">{{pill.value['denom']}}</div>
+        <div class="subtitle"><span>{{pill.value['scheduled']}}</span> {{pill.value['oraPrimaDoseSingola']}} {{pill.value['oraPrimaDoseDoppia']}} {{pill.value['oraSecondaDoseDoppia']}}</div></div>
+      <div class="width-10 float-left text-right">
+        <a (click)="pillDetail(pill.value)" class="read-more-btn"><fa-icon icon="search-plus"></fa-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        <a (click)="deletePill(pill.value['id'])" class="read-more-btn" style="color: red !important;"><fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+      </div>
+    </div>
+  </div>
+
+
+  <ion-modal trigger="open-modal-pill" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Chiudi</ion-button>
+          </ion-buttons>
+          <ion-title>{{"LBL_NEW_DRUG" | translate}}</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="page-background modern">
+        <br>
+        <div class="content">
+          <div class="ng-autocomplete">
+            <ng-autocomplete
+              [(ngModel)]="selectedPill"
+              [data]="data"
+              [searchKeyword]="keyword"
+              placeholder="{{'LBL_AUTOCOMPLETE_PH' | translate}}"
+              (selected)='selectEvent($event)'
+              (inputChanged)='onChangeSearch($event)'
+              (inputFocused)='onFocused($event)'
+              [notFoundText]="notFound"
+              [minQueryLength]="minQuery"
+              [itemTemplate]="itemTemplate"
+              [notFoundTemplate]="notFoundTemplate">
+            </ng-autocomplete>
+
+            <ng-template #itemTemplate let-item>
+              <a [innerHTML]="item.denom"></a>
+            </ng-template>
+
+            <ng-template #notFoundTemplate let-notFound>
+              <div [innerHTML]="notFound"></div>
+            </ng-template>
+          </div>
+          <ion-button size="full" (click)="addPill()">{{"LBL_CONFIRM" | translate}}</ion-button>
+          <div class="box">
+            <div *ngIf="hideFrequenza">
+              <div class="label">{{"LBL_FREQ" | translate}}</div>
+              <select (change)="selectedFreq()" [(ngModel)]="selectedFreque" class="form-control">
+                <option value="once">{{"LBL_FREQ_ONCE" | translate}}</option>
+                <option value="twice">{{"LBL_FREQ_TWICE" | translate}}</option>
+                <option value="none">{{"LBL_ON_NEEDING" | translate}}</option>
+              </select>
+            </div>
+            <br>
+            <div *ngIf="hideOraSingola">
+              <div class="label">{{"LBL_HOUR_FIRST_DOSE"|translate}}</div>
+              <input type="time" class="form-control" [(ngModel)]="oraPrimaDoseSingola">
+            </div>
+            <div *ngIf="hideOraDoppia">
+              <div class="label">{{"LBL_HOUR_FIRST_DOSE"|translate}}</div>
+              <input type="time" class="form-control" [(ngModel)]="oraPrimaDoseDoppia">
+              <div class="label">{{"LBL_QT"|translate}}</div>
+              <input type="number" class="form-control" [(ngModel)]="qtPrimaDoseDoppia">
+              <br>
+              <div class="label">{{"LBL_HOUR_SECOND_DOSE"|translate}}</div>
+              <input type="time" class="form-control" [(ngModel)]="oraSecondaDoseDoppia">
+              <div class="label">{{"LBL_QT"|translate}}</div>
+              <input type="number" class="form-control" [(ngModel)]="qtSecondaDoseDoppia">
+            </div>
+            <br>
+            <br>
+            <div *ngIf="hideScorta">
+              <div class="label">{{"LBL_SCORTA" | translate}}</div>
+              <input type="number" class="form-control" ngModel="scorte">
+            </div>
+
+            <ion-button size="full" (click)="salvaPromemoria()">{{"LBL_SAVE_REMINDER"|translate}}</ion-button>
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <div
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{"LBL_DRUG_DETAIL" | translate}}</h4>
+        </div>
+        <div class="modal-body">
+
+          <p>{{"LBL_MOLECULE" | translate}}: {{modalSelectedPill.principio_attivo}}</p>
+          <p>{{"LBL_GROUP_DESCR" | translate}} {{modalSelectedPill.descrizione_gruppo}}</p>
+          <p>{{"LBL_DENOM" | translate}} {{modalSelectedPill.denom}}</p>
+          <p>{{"LBL_PRICE" | translate}} {{modalSelectedPill.prezzo}} €</p>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger"
+                  (click)="closeModal()">
+            {{"CLOSE" | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<app-footerbtn></app-footerbtn>

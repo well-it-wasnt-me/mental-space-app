@@ -1,0 +1,15 @@
+<ion-content class="splash-background">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="container">
+    <div class="logo animated fadeInUp">
+      <div class="logo-image"><img src="../../assets/mental-space-logo/png/logo.png" class="width-100"/></div>
+      <div class="below-text">{{statusText}}</div>
+    </div>
+
+  </div>
+  <div class="company-logo">
+    v {{appVersion}}
+  </div>
+</ion-content>

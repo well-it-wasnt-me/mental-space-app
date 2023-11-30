@@ -1,0 +1,28 @@
+<ion-content class="auth-page page-background">
+  <form #form="ngForm" (ngSubmit)="loginAction()">
+    <div class="container">
+
+      <div class="logo">
+        <div class="logo-image"><img src="../../assets/mental-space-logo/png/logo-white.png" class="width-100"/></div>
+
+      </div>
+
+      <div class="form-middle">
+        <div class="form-group">
+          <input type="email" class="form-control" [(ngModel)]="postData.username" [ngModelOptions]="{standalone: true}" id="email" placeholder="E-Mail" required="required">
+        </div>
+        <div class="form-group iconpwd-left">
+          <input type="password" [(ngModel)]="postData.password" [ngModelOptions]="{standalone: true}"  class="form-control" id="password" placeholder="Password" required="required">
+        </div>
+        <div class="forget-password-btn text-center"><a>{{ "PWD_FORGOT" | translate}}</a></div>
+
+      </div>
+
+
+    </div>
+    <div class="footer">
+      <div class="left text-center"><button type="submit" class="btn btn-primary margin-top-30">{{"DO_LOGIN" | translate}} <fa-icon icon="arrow-right"></fa-icon></button></div>
+      <div class="right"><a class="black-btn" [routerLink]="['/register']"><span><img src="../../../assets/images/register.png" class="w-100" /></span></a></div>
+    </div>
+  </form>
+</ion-content>

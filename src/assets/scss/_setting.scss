@@ -1,0 +1,220 @@
+/*
+* ----------------------------------------------------------------------------------------
+* 5.Setting Page 
+* ----------------------------------------------------------------------------------------
+*/
+
+.setting-box {
+  border-bottom: 1px solid #444;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.toggle-btn {
+  position: absolute;
+  right: 0px;
+  width: 65px;
+  top: 0px;
+}
+
+.tgl {
+  display: none;
+}
+
+.toggle-btn1 .tgl-flip + .tgl-btn {
+  padding: 2px;
+  transition: all .2s ease;
+  display: block;
+  -webkit-perspective: 100px;
+  perspective: 100px;
+
+  &:after {
+    display: inline-block;
+    transition: all .4s ease;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    line-height: 2em;
+    font-weight: bold;
+    color: $white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 4px;
+  }
+}
+
+.tgl-flip + .tgl-btn:before {
+  display: inline-block;
+  transition: all .4s ease;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  line-height: 2em;
+  font-weight: bold;
+  color: $white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 4px;
+}
+
+.toggle-btn1 .tgl-flip {
+  + .tgl-btn {
+    &:after {
+      content: attr(data-tg-on);
+      background: $secondary;
+      -webkit-transform: rotateY(-180deg);
+      transform: rotateY(-180deg);
+    }
+
+    &:before {
+      background: $secondary;
+      content: attr(data-tg-off);
+    }
+
+    &:active:before {
+      -webkit-transform: rotateY(-20deg);
+      transform: rotateY(-20deg);
+    }
+  }
+
+  &:checked + .tgl-btn {
+    &:before {
+      -webkit-transform: rotateY(180deg);
+      transform: rotateY(180deg);
+    }
+
+    &:after {
+      -webkit-transform: rotateY(0);
+      transform: rotateY(0);
+      left: 0;
+      background: $secondary;
+    }
+
+    &:active:after {
+      -webkit-transform: rotateY(20deg);
+      transform: rotateY(20deg);
+    }
+  }
+}
+
+.toggle-btn2 .tgl-flip + .tgl-btn {
+  padding: 2px;
+  transition: all .2s ease;
+  display: block;
+  -webkit-perspective: 100px;
+  perspective: 100px;
+
+  &:after {
+    display: inline-block;
+    transition: all .4s ease;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    line-height: 2em;
+    font-weight: bold;
+    color: $white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 4px;
+  }
+}
+
+.tgl-flip + .tgl-btn:before {
+  display: inline-block;
+  transition: all .4s ease;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  line-height: 2em;
+  font-weight: bold;
+  color: $white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 4px;
+}
+
+.toggle-btn2 .tgl-flip {
+  + .tgl-btn {
+    &:after {
+      content: attr(data-tg-on);
+      background: $secondary;
+      -webkit-transform: rotateY(-180deg);
+      transform: rotateY(-180deg);
+    }
+
+    &:before {
+      background: $secondary;
+      content: attr(data-tg-off);
+    }
+
+    &:active:before {
+      -webkit-transform: rotateY(-20deg);
+      transform: rotateY(-20deg);
+    }
+  }
+
+  &:checked + .tgl-btn {
+    &:before {
+      -webkit-transform: rotateY(180deg);
+      transform: rotateY(180deg);
+    }
+
+    &:after {
+      -webkit-transform: rotateY(0);
+      transform: rotateY(0);
+      left: 0;
+      background: $secondary;
+    }
+
+    &:active:after {
+      -webkit-transform: rotateY(20deg);
+      transform: rotateY(20deg);
+    }
+  }
+}
+
+.setting-box .edit-btn {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  color: $white !important;
+  cursor: pointer;
+
+  &:hover {
+    color: $secondary !important;
+  }
+}
+
+.delete-btn {
+  color: #DB2F2F !important;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.setting-box {
+  .label {
+    font-size: 12px;
+    color: $white;
+    font-weight: 600;
+    opacity: 0.5;
+  }
+
+  .value {
+    font-size: 14px;
+    color: $white;
+    font-weight: 700;
+  }
+}

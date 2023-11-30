@@ -1,0 +1,8 @@
+{
+  "name": "Mental Space",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "66de53d2"
+}

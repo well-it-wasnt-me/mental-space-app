@@ -1,0 +1,205 @@
+<app-sidebar></app-sidebar>
+<ion-header>
+  <ion-toolbar class="page-background">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-back-button text="Indietro" style="color: white !important;" default-href="/dashboard"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <div style="color: white">{{"LBL_MY_EMOTIONS" | translate}}</div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="page-background">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content style="background-color: white;"
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="{{'PULLING_TEXT' | translate}}"
+      refreshingSpinner="circles"
+      refreshingText="{{'REFRESHING_TEXT' | translate}}">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="container">
+    <div class="main-subtitle">{{"LBL_AVAIL_CHART"|translate}}</div>
+
+    <div class="list">
+      <div>
+        <div class="width-10 float-left"><div class="icon2"><img src="assets/icon/mental-space-website-favicon-color.png" width="236px" height="auto"/></div></div>
+        <div class="width-80 float-left"><div class="title">{{"CHART_MY_EMOTION" | translate}}</div>
+          <div class="subtitle"><a id="open-modal-emozioni" class="btn btn-sm btn-success" style="color: white;">{{"COMPILE" | translate}}</a></div></div>
+      </div>
+    </div>
+
+
+    <div class="main-subtitle">{{"HISTORY" | translate}}</div>
+    <div class="list" *ngFor="let apm of elenco_tests">
+
+      <div class="width-10 float-left"><div class="icon2"><img src="assets/icon/mental-space-website-favicon-color.png" /></div></div>
+      <div class="width-80 float-left"><div class="title">{{apm.data_compilazione | date: 'dd/MM/yyyy H:mm:ss'}} - {{"CHART_MY_EMOTION" | translate}}</div>
+        <div class="subtitle">{{"CHART_SUCCESSFULL_SENT" | translate}}</div>
+      </div>
+
+    </div>
+
+
+
+  </div>
+</ion-content>
+<ion-modal trigger="open-modal-emozioni">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="chiudiModal()">{{"CLOSE" | translate}}</ion-button>
+        </ion-buttons>
+        <ion-title>{{"MY_CHART" | translate}}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding page-background">
+      <ion-accordion-group expand="inset">
+        <ion-accordion value="zero">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"LBL_POINT_ABILITY" | translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            {{"LBL_EMOTIONS" | translate}}
+            <ul>
+              <li>{{"LBL_0_POINT" | translate}}</li>
+              <li>{{"LBL_1_POINT" | translate}}</li>
+              <li>{{"LBL_2_POINT" | translate}}</li>
+              <li>{{"LBL_3_POINT" | translate}}</li>
+              <li>{{"LBL_4_POINT" | translate}}</li>
+              <li>{{"LBL_5_POINT" | translate}}</li>
+            </ul>
+            {{"LBL_ABILITY" | translate}}
+            <ul>
+              <li>{{"LBL_0_ABILITY" | translate}}</li>
+              <li>{{"LBL_1_ABILITY" | translate}}</li>
+              <li>{{"LBL_2_ABILITY" | translate}}</li>
+              <li>{{"LBL_3_ABILITY" | translate}}</li>
+              <li>{{"LBL_4_ABILITY" | translate}}</li>
+              <li>{{"LBL_5_ABILITY" | translate}}</li>
+              <li>{{"LBL_6_ABILITY" | translate}}</li>
+              <li>{{"LBL_7_ABILITY" | translate}}</li>
+            </ul>
+          </div>
+        </ion-accordion>
+        <ion-accordion value="first">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"LBL_RAGE"|translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="rabbia">{{"LBL_RAGE"|translate}}</label>
+            <ion-range [(ngModel)]="rabbia" id="rabbia" [min]="0" [max]="5" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
+          </div>
+        </ion-accordion>
+        <ion-accordion value="second">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"LBL_AFRAID_ANXIETY"|translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="paura">{{"LBL_AFRAID_ANXIETY"|translate}}</label>
+            <ion-range [(ngModel)]="paura" id="paura" [min]="0" [max]="5" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
+          </div>
+        </ion-accordion>
+        <ion-accordion value="third">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"LBL_HAPPINESS"|translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="gioia">{{"LBL_HAPPINESS"|translate}}</label>
+            <ion-range [(ngModel)]="gioia" id="gioia" [min]="0" [max]="5" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
+          </div>
+        </ion-accordion>
+
+        <ion-accordion value="fourth">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"LBL_GUILT"|translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="colpa">{{"LBL_GUILT"|translate}}</label>
+            <ion-range [(ngModel)]="colpa" id="colpa" [min]="0" [max]="5" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
+          </div>
+        </ion-accordion>
+
+        <ion-accordion value="fifth">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"LBL_SADNESS"|translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="tristezza">{{"LBL_SADNESS"|translate}}</label><br>
+            <ion-range [(ngModel)]="tristezza" id="tristezza" [min]="0" [max]="5" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
+          </div>
+        </ion-accordion>
+
+        <ion-accordion value="n">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"LBL_SHAME"|translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="tristezza">{{"LBL_SHAME"|translate}}</label><br>
+            <ion-range [(ngModel)]="vergogna" id="vergogna" [min]="0" [max]="5" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
+          </div>
+        </ion-accordion>
+
+        <ion-accordion value="sixth">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"LBL_SUFF"|translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="sofferenza_fisica_emotiva">{{"LBL_SUFF" | translate}}</label>
+            <ion-range [(ngModel)]="sofferenza_fisica_emotiva" id="sofferenza_fisica_emotiva" [min]="0" [max]="5" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
+          </div>
+        </ion-accordion>
+
+        <ion-accordion value="seventh">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"LBL_ABILITY" | translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="abilita_messe_in_pratica">{{"LBL_USE_ABILITY" | translate}}</label>
+            <ion-range [(ngModel)]="abilita_messe_in_pratica" id="abilita_messe_in_pratica" [min]="0" [max]="7" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
+          </div>
+        </ion-accordion>
+
+        <ion-accordion value="eight">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"LBL_LEAVE"|translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="intenzione_abbandono_terapia">{{"LBL_LEAVE" | translate}}</label>
+            <ion-range [(ngModel)]="intenzione_abbandono_terapia" id="intenzione_abbandono_terapia" [min]="0" [max]="5" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
+          </div>
+        </ion-accordion>
+
+        <ion-accordion value="nine">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"LBL_TRUST_CHANGE"|translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <label for="fiducia_cambiamento">{{"LBL_TRUST_CHANGE"|translate}}</label>
+            <ion-range [(ngModel)]="fiducia_cambiamento" id="fiducia_cambiamento" [min]="0" [max]="5" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
+          </div>
+        </ion-accordion>
+
+
+        <ion-accordion value="final">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"QUESTION_FINAL"|translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            {{"LBL_EVENTUAL_NOTES"|translate}}
+            <textarea [(ngModel)]="note" class="form-control"></textarea>
+            <p>{{"QUESTION_FINAL_DISCL" | translate}}</p>
+            <a class="btn btn-success btn-sm" style="color:white;" (click)="salvaScheda()">SALVA</a>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<app-footerbtn></app-footerbtn>
+

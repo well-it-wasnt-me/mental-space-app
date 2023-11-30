@@ -1,0 +1,155 @@
+<app-sidebar></app-sidebar>
+<ion-header>
+  <ion-toolbar class="page-background">
+    <ion-buttons slot="start">
+      <ion-button>
+        <div style="color: white">{{"DASHBOARD" | translate}}</div><br>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <div style="font-size: 12px; color: white">{{"HELLO" | translate}} {{user_data.f_name}}!</div>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button style="width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-left: auto;">
+        <div class="text-right"><div class="profile-pic" (click)="profilePage()"><img src="{{user_data.pic}}" style="border-radius: 10px" class="width-100"/></div></div>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="page-background">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content style="background-color: white;"
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Continua a tirare per aggiornare"
+      refreshingSpinner="circles"
+      refreshingText="Aggiornamento in corso...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="container">
+    <div class="chart-container">
+      <div class="row">
+        <div class="col-7"><div class="title">{{"MY_MOOD" | translate}}</div></div>
+        <div class="col-5 text-right"><div class="badge">{{"LAST_7_DAYS" | translate}}</div></div>
+      </div>
+      <div class="main-chart">
+        <canvas #barCanvas id="myChart"></canvas>
+      </div>
+      <ion-button size="small" color="success" id="open-modal-add-mood" expand="block">{{"ADD_MOOD" | translate}}</ion-button>
+    </div>
+
+    <div class="main-subtitle">{{"MY_DRUGS" | translate}}</div>
+    <div class="list" *ngIf="pills?.length === 0">
+      <div>
+        <div class="width-10 float-left"><div class="icon"><img src="../../../assets/images/pill-capsule.png" class="w-100"/></div></div>
+        <div class="width-80 float-left"><div class="title">{{"NO_DRUGS" | translate}}</div>
+          <div class="subtitle"><span>{{"NO_DRUGS_GO_TO" | translate}}</span></div></div>
+        <div class="width-10 float-left text-right">
+          <a [routerLink]="['/pills']" class="read-more-btn"><fa-icon icon="search-plus"></fa-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </div>
+    <div class="list" *ngFor="let pill of pills | keyvalue">
+        <div class="width-10 float-left"><div class="icon"><img src="../../../assets/images/pill-capsule.png" class="w-100"/></div></div>
+        <div class="width-80 float-left"><div class="title">{{pill.value['denom']}}</div>
+          <div class="subtitle"><span>{{pill.value['scheduled']}}</span> {{pill.value['oraPrimaDoseSingola']}} {{pill.value['oraPrimaDoseDoppia']}} {{pill.value['oraSecondaDoseDoppia']}}</div></div>
+        <div class="width-10 float-left text-right">
+          <a [routerLink]="['/pills']" class="read-more-btn"><fa-icon icon="search-plus"></fa-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+    </div>
+    <div class="main-subtitle">{{"MY_DOC" | translate}}</div>
+    <div class="list">
+      <div class="width-10 float-left"><img src="{{myDoc.photo}}" class="w-100"/></div>
+      <div class="width-80 float-left"><div class="title"> {{myDoc.full_name || "Ancora non selezionato"}}</div>
+        <div class="subtitle"><span>{{myDoc.address || "Scegli il tuo medico"}}</span></div></div>
+      <div class="width-10 float-left text-right"><a [routerLink]="['/medico']" class="read-more-btn"><fa-icon icon="search-plus"></fa-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </a></div>
+
+    </div>
+    <div class="main-subtitle">{{"MOVEMENTS" | translate}}</div>
+    <ul class="report-list">
+      <li><div class="row"><div class="col-6"><span class="name">{{"TODAY_STEPS" | translate}}</span></div><div class="col-6 text-right"><span class="date">{{today_steps}}</span></div></div> </li>
+      <!--<li><div class="row"><div class="col-6"><span class="name">Sugar Report</span></div><div class="col-6 text-right"><span class="date">20 mar 2019</span></div></div> </li>
+      <li><div class="row"><div class="col-6"><span class="name">Heart Cardio</span></div><div class="col-6 text-right"><span class="date">20 mar 2019</span></div></div> </li>
+      <li><div class="row"><div class="col-6"><span class="name">Surgery Report</span></div><div class="col-6 text-right"><span class="date">20 mar 2019</span></div></div> </li>-->
+    </ul>
+    <div class="main-subtitle">{{"AVAIL_REPORTS" | translate}}</div>
+    <ul class="report-list">
+      <li><div class="row"><div class="col-6"><span class="name">Nessuno</span></div><div class="col-6 text-right"><span class="date"></span></div></div> </li>
+      <!--<li><div class="row"><div class="col-6"><span class="name">Sugar Report</span></div><div class="col-6 text-right"><span class="date">20 mar 2019</span></div></div> </li>
+      <li><div class="row"><div class="col-6"><span class="name">Heart Cardio</span></div><div class="col-6 text-right"><span class="date">20 mar 2019</span></div></div> </li>
+      <li><div class="row"><div class="col-6"><span class="name">Surgery Report</span></div><div class="col-6 text-right"><span class="date">20 mar 2019</span></div></div> </li>-->
+    </ul>
+  </div>
+</ion-content>
+
+<ion-modal trigger="open-modal-add-mood" (willDismiss)="onWillDismiss($event)">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancel()">Annulla</ion-button>
+        </ion-buttons>
+        <ion-title>Il Mio Umore</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding page-background">
+
+      <form class="modern" (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <div class="title">Oggi il mio umore è:</div>
+        <div class="steps steps-box">
+            <div class="form-group">
+              <ul>
+                <li>
+                  <input type="radio" [ngModel]="mood.value" id="mood_ottimo" name="selector" [checked]="true" value="1" checked="checked" (change)="onItemChange($event.target)">
+                  <label for="mood_ottimo">😃 Ottimo</label>
+                  <div class="check"></div>
+                </li>
+
+                <li>
+                  <input type="radio" [ngModel]="mood.value" id="mood_buono" value="2" name="selector" (change)="onItemChange($event.target)">
+                  <label for="mood_buono">🙂 Buono</label>
+                  <div class="check"><div class="inside"></div></div>
+                </li>
+
+                <li>
+                  <input type="radio"  [ngModel]="mood.value" value="3" id="mood_stabile" name="selector" (change)="onItemChange($event.target)">
+                  <label for="mood_stabile">😐 Stabile</label>
+                  <div class="check"><div class="inside"></div></div>
+                </li>
+
+                <li>
+                  <input type="radio" id="mood_basso" name="selector" [ngModel]="mood.value" value="4" (change)="onItemChange($event.target)">
+                  <label for="mood_basso">🙁 Basso</label>
+                  <div class="check"><div class="inside"></div></div>
+                </li>
+
+                <li>
+                  <input type="radio" id="mood_depresso" name="selector" [ngModel]="mood.value" value="5" (change)="onItemChange($event.target)">
+                  <label for="mood_depresso">☹️ Molto Depresso</label>
+                  <div class="check"><div class="inside"></div></div>
+                </li>
+
+              </ul>
+            </div>
+
+        <div class="title">E' Successo qualcosa di rilevante ?</div>
+
+            <div class="form-group">
+              <textarea class="form-control" placeholder="Scrivere evento qui" [ngModel]="mood.ws" rows="5" id="comment" name="comment"></textarea>
+            </div>
+
+        </div>
+
+        <div class="footer steps">
+          <div class="left text-center"><button type="submit" class="btn btn-primary margin-top-30">Salva <fa-icon icon="save"></fa-icon></button></div>
+        </div>
+      </form>
+
+    </ion-content>
+  </ng-template>
+</ion-modal>
+<app-footerbtn></app-footerbtn>

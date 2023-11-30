@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "538291275147",
+    "project_id": "mental-space-377116",
+    "storage_bucket": "mental-space-377116.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538291275147:android:ecb192677cfb2fc7889b8e",
+        "android_client_info": {
+          "package_name": "care.mentalspace.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538291275147-4v92c8eisqhcmn332d86se7d4hpr25ts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "--INSERT KEY HERE--"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538291275147-4v92c8eisqhcmn332d86se7d4hpr25ts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

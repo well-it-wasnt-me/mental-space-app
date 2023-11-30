@@ -1,0 +1,28 @@
+/*
+* ----------------------------------------------------------------------------------------
+*  All css file
+* ----------------------------------------------------------------------------------------
+*/
+
+@import "variables";
+@import "responsive";
+
+/*
+* ----------------------------------------------------------------------------------------
+*  Import SCSS Files
+* ----------------------------------------------------------------------------------------
+*/
+
+@import "default";
+@import "authenticatedpages";
+@import "sidenav";
+@import "dashboard";
+@import "setting";
+@import "profile";
+@import "search";
+@import "message";
+@import "dropdowns";
+@import "chat";
+@import "form";
+@import "multistepform";
+

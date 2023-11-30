@@ -1,0 +1,154 @@
+<app-sidebar></app-sidebar>
+<ion-header>
+  <ion-toolbar class="page-background">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-back-button text="Indietro" style="color: white !important;" default-href="/dashboard"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <div style="color: white">{{'LBL_TESTS' | translate}}</div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="page-background">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content style="background-color: white;"
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="{{'PULLING_TEXT' | translate}}"
+      refreshingSpinner="circles"
+      refreshingText="{{'REFRESHING_TEXT' | translate}}">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="container">
+    <div class="main-subtitle">{{'LBL_AVAIL_TEST' | translate}}</div>
+
+    <div class="list">
+      <div>
+        <div class="width-10 float-left"><div class="icon2"><img src="assets/icon/mental-space-website-favicon-color.png" width="236px" height="auto"/></div></div>
+        <div class="width-80 float-left"><div class="title">{{'TEST_PHQ' | translate}}</div>
+          <div class="subtitle"><a id="open-modal-phq" class="btn btn-sm btn-success" style="color: white;">COMPILA</a></div></div>
+      </div>
+    </div>
+
+
+    <div class="main-subtitle">{{'HISTORY' | translate}}</div>
+    <div class="list" *ngFor="let apm of elenco_tests">
+
+      <div class="width-10 float-left"><div class="icon2"><img src="assets/icon/mental-space-website-favicon-color.png" /></div></div>
+      <div class="width-80 float-left"><div class="title">{{apm.data_compilazione | date: 'dd/MM/yyyy H:mm:ss'}} - PHQ-9</div>
+        <div class="subtitle">{{'TEST_SENT_RESULT' | translate}} {{convertResult(apm.result)}}</div>
+      </div>
+
+    </div>
+
+
+
+  </div>
+</ion-content>
+<ion-modal trigger="open-modal-phq">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="chiudiModal()">{{'CLOSE' | translate}}</ion-button>
+        </ion-buttons>
+        <ion-title>{{'TEST_PHQ' | translate}}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding page-background">
+      <ion-accordion-group expand="inset">
+        <ion-accordion value="zero">
+          <ion-item slot="header" color="light">
+            <ion-label>{{'VALUE_SCALE' | translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ul>
+              <li>{{'OTHER_SCALE_0' | translate}}</li>
+              <li>{{'OTHER_SCALE_1' | translate}}</li>
+              <li>{{'OTHER_SCALE_2' | translate}}</li>
+              <li>{{'OTHER_SCALE_3' | translate}}</li>
+            </ul>
+          </div>
+        </ion-accordion>
+        <ion-accordion value="first">
+          <ion-item slot="header" color="light">
+            <ion-label>{{'QUESTIONS' | translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <p>{{"PHQ_INTRO" | translate}}</p>
+            <hr>
+            <label for="interesse">{{"PHQ_1" | translate}}</label>
+            <ion-range [(ngModel)]="interesse" id="interesse" [min]="0" [max]="3" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range><br>
+
+            <label for="depresso">{{"PHQ_2" | translate}}</label>
+            <ion-range [(ngModel)]="depresso" id="depresso" [min]="0" [max]="3" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range><br>
+
+            <label for="difficolta_sonno">{{"PHQ_3" | translate}}</label>
+            <ion-range [(ngModel)]="difficolta_sonno" id="difficolta_sonno" [min]="0" [max]="3" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range><br>
+
+            <label for="stanco">{{"PHQ_4" | translate}}</label>
+            <ion-range [(ngModel)]="stanco" id="stanco" [min]="0" [max]="3" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range><br>
+
+            <label for="poca_fame">{{"PHQ_5" | translate}}</label>
+            <ion-range [(ngModel)]="poca_fame" id="poca_fame" [min]="0" [max]="3" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range><br>
+
+            <label for="sensi_di_colpa">{{"PHQ_6" | translate}}</label>
+            <ion-range [(ngModel)]="sensi_di_colpa" id="sensi_di_colpa" [min]="0" [max]="3" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range><br>
+
+            <label for="difficolta_concentrazione">{{"PHQ_7" | translate}}</label>
+            <ion-range [(ngModel)]="difficolta_concentrazione" id="difficolta_concentrazione" [min]="0" [max]="3" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range><br>
+
+
+            <label for="movimento">{{"PHQ_8" | translate}}</label>
+            <ion-range [(ngModel)]="movimento" id="movimento" [min]="0" [max]="3" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range><br>
+
+            <label for="meglio_morte">{{"PHQ_9" | translate}}</label>
+            <ion-range [(ngModel)]="meglio_morte" id="meglio_morte" [min]="0" [max]="3" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range><br>
+          </div>
+        </ion-accordion>
+        <ion-accordion value="second">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"LAST_QUESTION" | translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <p>{{"NEW_SCALE" | translate}} </p>
+            <ul>
+              <li>{{"NEW_SCALE_0" | translate}}</li>
+              <li>{{"NEW_SCALE_1" | translate}}</li>
+              <li>{{"NEW_SCALE_2" | translate}}</li>
+              <li>{{"NEW_SCALE_3" | translate}}</li>
+            </ul>
+            <label for="difficolta_problemi">{{"PHQ_10" | translate}}</label>
+            <ion-range [(ngModel)]="difficolta_problemi" id="difficolta_problemi" [min]="0" [max]="3" [value]="0" [pin]="true" [ticks]="true" [snaps]="true"></ion-range><br>
+            <br>
+            <a class="btn btn-success btn-sm" style="color:white;" (click)="salvaScheda()">{{"SEND_TEST" | translate}}</a>
+          </div>
+        </ion-accordion>
+        <ion-accordion value="third">
+          <ion-item slot="header" color="light">
+            <ion-label>{{"CREDITS_BIBL" | translate}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <p>Arroll B, Goodyear-Smith F, Crengle S, et al. Validation of PHQ-2 and PHQ-9 to Screen for<br>
+              Major Depression in the Primary Care Population. Ann Fam Med 2010 8:348-353.<br>
+              Gilbody S, Richards D, Barkham M. Diagnosing depression in primary care using selfcompleted instruments: a UK validation of the PHQ-9 and CORE-OM. Brit J Gen Pract
+              2007;57:650-652.<br>
+              MacArthur JD, MacArthur CT, MacArthur Foundation’s Initiative on Depression & Primary
+              Care. Depression management tool kit 2009.<br>
+              Kroenke K, Spitzer RL, Williams JB. The PHQ-9: validity of a brief depression severity
+              measure. J Gen Intern Med 2001;16:606-613.<br>
+              Spitzer RL, Kroenke K, Williams JB. Validation and utility of a self-report version of PRIMEMD: the PHQ primary care study. Primary Care Evaluation of Mental Disorders. Patient
+              Health Questionnaire. JAMA 1999;282:1737-44.
+
+              <a href="http://www.depression-primarycare.org/images/pdf/macarthur_toolkit.pdf">http://www.depression-primarycare.org</a></p>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<app-footerbtn></app-footerbtn>
+

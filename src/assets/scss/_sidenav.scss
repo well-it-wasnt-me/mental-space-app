@@ -1,0 +1,142 @@
+/*
+* ----------------------------------------------------------------------------------------
+* 3.Sidenav
+* ----------------------------------------------------------------------------------------
+*/
+
+.main-menu-box {
+  position: fixed;
+  z-index: 99;
+  width: 0;
+  height: 100%;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+
+  &.open {
+    width: 100%;
+
+    .singout-btn {
+      opacity: 1;
+      display: block;
+    }
+  }
+
+  .header {
+    background: $secondary;
+    height: 120px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 20px;
+
+    .logo {
+      width: 100px;
+      margin-bottom: 5px;
+    }
+  }
+
+  .main-menu {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    margin-top: 50px;
+
+    li {
+      margin-bottom: 15px;
+
+      &.active {
+        .collapse {
+          display: block !important;
+        }
+
+        .nav-link.collapsed i {
+          transform: rotate(90deg);
+        }
+      }
+
+      a {
+        font-size: 16px;
+        color: $white;
+        font-weight: 600;
+        padding: 0px;
+        cursor: pointer;
+
+        &.active, &:hover {
+          color: $secondary;
+        }
+
+        i {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}
+
+.nav-link {
+  &.collapsed i {
+    transform: rotate(0deg);
+    transition: 0.3s;
+  }
+
+  i {
+    transform: rotate(90deg);
+  }
+}
+
+.main-menu-box {
+  .singout-btn {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    width: 90%;
+    text-align: center;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    opacity: 0;
+    display: none;
+
+    a {
+      font-size: 16px;
+      text-transform: uppercase;
+      color: $secondary;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+
+      &:hover {
+        color: $white;
+
+        i {
+          color: $secondary;
+        }
+      }
+    }
+
+    i {
+      color: $white;
+      font-size: 12px;
+      top: -1px;
+      left: 5px;
+      position: relative;
+    }
+  }
+
+  .main-menu li ul {
+    margin-top: 15px;
+    margin-bottom: -5px;
+
+    li {
+      margin-bottom: 5px;
+
+      a {
+        font-size: 14px;
+        color: #DBDBDB;
+      }
+    }
+  }
+}

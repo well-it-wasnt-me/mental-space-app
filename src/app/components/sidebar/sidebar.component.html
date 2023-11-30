@@ -1,0 +1,80 @@
+<aside class="main-menu-box">
+  <div class="header">
+    <div class="container">
+      <div class="logo"><img src="../../../assets/images/logo.png" class="w-100"/></div>
+      <div class="subtitle">Versione: {{appVersion}}</div>
+    </div>
+  </div>
+  <div class="container">
+    <ul class="nav flex-column flex-nowrap main-menu overflow-auto scroll-touch">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/dashboard']" [ngClass]="url1==='/dashboard' ? 'active ' : ''"> <span><fa-icon
+          icon="dashboard"></fa-icon> {{"MNU_DASH" | translate}}</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [ngClass]="url1 ==='/mood' ? 'active' : ''" [routerLink]="['/mood']"> <span><fa-icon
+          icon="smile-beam"></fa-icon> {{"MNU_MOOD" | translate}}</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/pills']" [ngClass]="url1==='/pills' ||  url1==='/pills' ? 'active ' : ''">
+          <span><fa-icon icon="pills"></fa-icon> {{"MNU_DRUGS" | translate}} </span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/calendar']" [ngClass]="url1 ==='/calendar' ? 'active' : ''"><span><fa-icon
+          icon="calendar"></fa-icon> {{"MNU_CAL" | translate}}</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/medico']" [ngClass]="url1 ==='/medico' ? 'active' : ''"><span><fa-icon
+          icon="user-doctor"></fa-icon> {{"MNU_DOC" | translate}}</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/salute']" [ngClass]="url1 ==='/salute' ? 'active' : ''"><span><fa-icon
+          icon="heart"></fa-icon> {{"MNU_HEALTH" | translate}}</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/comportamenti']" [ngClass]="url1 ==='/comportamenti' ? 'active' : ''"><span><fa-icon
+          icon="user-injured"></fa-icon> {{"MNU_BEHAV" | translate}}</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/emozioni']" [ngClass]="url1 ==='/emozioni' ? 'active' : ''"><span><fa-icon
+          icon="user-clock"></fa-icon> {{"MNU_EMO" | translate}}</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/tests']" [ngClass]="url1 ==='/tests' ? 'active' : ''"><span><fa-icon
+          icon="clipboard-check"></fa-icon> {{"MNU_TEST" | translate}}</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/obiettivi']" [ngClass]="url1 ==='/obiettivi' ? 'active' : ''"><span><fa-icon
+          icon="tasks"></fa-icon> {{"MNU_OBJ" | translate}}</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/diario']" [ngClass]="url1 ==='/diario' ? 'active' : ''"><span><fa-icon
+          icon="clipboard"></fa-icon> {{"MNU_DIARY" | translate}}</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/reports']" [ngClass]="url1==='/reports' ? 'active' : ''"><span><fa-icon
+          icon="list-numeric"></fa-icon> {{"MNU_REPORT" | translate}}</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/profile']" [ngClass]="url1==='/profile' ? 'active' : ''"><span><fa-icon
+          icon="user-astronaut"></fa-icon> {{"MNU_PROFILE" | translate}}</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/impostazioni']" [ngClass]="url1==='/impostazioni' ? 'active' : ''"><span><fa-icon
+          icon="gears"></fa-icon> {{"MNU_SETT" | translate}}</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/aboutus']" [ngClass]="url1==='/aboutus' ? 'active' : ''"><span><fa-icon
+          icon="info-circle"></fa-icon> {{"MNU_ABOUT" | translate}}</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/updates']" [ngClass]="url1==='/updates' ? 'active' : ''"><span><fa-icon
+          icon="adjust"></fa-icon> {{"MNU_UPGR" | translate}}</span></a>
+      </li>
+
+    </ul>
+  </div>
+  <div class="singout-btn"><a (click)="loginPage()">Log Out
+    <fa-icon icon="arrow-right"></fa-icon>
+  </a></div>
+</aside>

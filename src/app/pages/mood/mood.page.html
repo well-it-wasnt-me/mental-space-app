@@ -1,0 +1,166 @@
+<app-sidebar></app-sidebar>
+<ion-header>
+  <ion-toolbar class="page-background">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-back-button text="Indietro" style="color: white !important;" default-href="/dashboard"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <a id="add-mood" style="color:white !important;">{{"LBL_ADD" | translate}}&nbsp;<fa-icon icon="plus-square"></fa-icon></a>
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="color:white !important;">
+      {{"LBL_MY_MOOD"|translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="page-background">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content style="background-color: white;"
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="{{'PULLING_TEXT' | translate}}"
+      refreshingSpinner="circles"
+      refreshingText="{{'REFRESHING_TEXT' | translate}}">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="container">
+    <div class="body">
+      <div class="chart-container">
+        <div class="row">
+          <div class="col-7"><div class="title">{{'LBL_MOOD_HISTORY' | translate}}</div></div>
+        </div>
+        <div class="main-chart">
+          <ion-list *ngIf="!loaded">
+            <ion-list-header>
+              <ion-skeleton-text [animated]="true" style="width: 80px"></ion-skeleton-text>
+            </ion-list-header>
+            <ion-item>
+              <ion-thumbnail slot="start">
+                <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+              </ion-thumbnail>
+              <ion-label>
+                <h3>
+                  <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+                </h3>
+                <p>
+                  <ion-skeleton-text [animated]="true" style="width: 60%;"></ion-skeleton-text>
+                </p>
+                <p>
+                  <ion-skeleton-text [animated]="true" style="width: 30%;"></ion-skeleton-text>
+                </p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-list>
+            <ion-item *ngFor="let mood of elencoMoods;">
+              <ion-avatar slot="start">
+                <img src="{{mood.image}}" />
+              </ion-avatar>
+              <ion-label>
+                <h2>{{mood.value}}</h2>
+                <p>{{ mood.effective_datetime | date: 'dd/MM/yyyy H:mm:ss' }}</p>
+              </ion-label>
+              <p>
+                <ion-button (click)="openModal(mood)" fill="solid" color="primary" ><ion-icon name="search-circle-outline"></ion-icon></ion-button>
+                <ion-button fill="solid" size="small" color="danger" (click)="eliminaMood(mood.trk_id)" ><ion-icon name="trash-outline"></ion-icon></ion-button></p>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{'LBL_MOOD_DETAIL' | translate}}</h4>
+        </div>
+        <div class="modal-body">
+          <p>{{"LBL_DATA" | translate}} {{selectedEv.effective_datetime | date: 'dd/MM/yyyy H:mm:ss'}}</p>
+          <p>{{"LBL_MOOD" | translate}} {{selectedEv.value}}</p>
+          <p>{{"LBL_EVENTS" | translate}} {{selectedEv.warning_sign}}</p>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger"
+                  (click)="closeModal()">
+            {{"CLOSE" | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-modal trigger="add-mood" (willDismiss)="onWillDismiss($event)">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancel()">{{"CANCEL" | translate}}</ion-button>
+        </ion-buttons>
+        <ion-title>{{"LBL_MY_MOOD" | translate}}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding page-background">
+
+      <form class="modern" (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <div class="title">{{"LBL_MOOD_TODAY" | translate}}</div>
+        <div class="steps steps-box">
+          <div class="form-group">
+            <ul>
+              <li>
+                <input type="radio" [ngModel]="mood.value" id="mood_ottimo" name="selector" [checked]="true" value="1" checked="checked" (change)="onItemChange($event.target)">
+                <label for="mood_ottimo">😃 {{"LBL_MOOD_EXCELLENT" | translate}}</label>
+                <div class="check"></div>
+              </li>
+
+              <li>
+                <input type="radio" [ngModel]="mood.value" id="mood_buono" value="2" name="selector" (change)="onItemChange($event.target)">
+                <label for="mood_buono">🙂 {{"LBL_MOOD_GOOD" | translate}}</label>
+                <div class="check"><div class="inside"></div></div>
+              </li>
+
+              <li>
+                <input type="radio"  [ngModel]="mood.value" value="3" id="mood_stabile" name="selector" (change)="onItemChange($event.target)">
+                <label for="mood_stabile">😐 {{"LBL_MOOD_STABLE" | translate}}</label>
+                <div class="check"><div class="inside"></div></div>
+              </li>
+
+              <li>
+                <input type="radio" id="mood_basso" name="selector" [ngModel]="mood.value" value="4" (change)="onItemChange($event.target)">
+                <label for="mood_basso">🙁 {{"LBL_MOOD_LOW" | translate}}</label>
+                <div class="check"><div class="inside"></div></div>
+              </li>
+
+              <li>
+                <input type="radio" id="mood_depresso" name="selector" [ngModel]="mood.value" value="5" (change)="onItemChange($event.target)">
+                <label for="mood_depresso">☹️ {{"LBL_MOOD_VERY_LOW" | translate}}</label>
+                <div class="check"><div class="inside"></div></div>
+              </li>
+
+            </ul>
+          </div>
+
+          <div class="title">{{"LBL_RELEVANT_FACT" | translate}}</div>
+
+          <div class="form-group">
+            <textarea class="form-control" placeholder="Scrivere evento qui" [ngModel]="mood.ws" rows="5" id="comment" name="comment"></textarea>
+          </div>
+
+        </div>
+
+        <div class="footer steps">
+          <div class="left text-center"><button type="submit" class="btn btn-primary margin-top-30">{{"SAVE" | translate}} <fa-icon icon="save"></fa-icon></button></div>
+        </div>
+      </form>
+
+    </ion-content>
+  </ng-template>
+</ion-modal>
+<app-footerbtn></app-footerbtn>

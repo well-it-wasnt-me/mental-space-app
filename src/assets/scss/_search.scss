@@ -1,0 +1,27 @@
+/*
+* ----------------------------------------------------------------------------------------
+* 7.Search 
+* ----------------------------------------------------------------------------------------
+*/
+
+.search-box {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  position: relative;
+
+  input {
+    padding: 0px 22px;
+    width: 100%;
+    border-radius: 5px;
+    height: 38px;
+    border: 0px;
+  }
+
+  button {
+    background: transparent;
+    position: absolute;
+    right: 8px;
+    top: 11px;
+    color: #555;
+  }
+}

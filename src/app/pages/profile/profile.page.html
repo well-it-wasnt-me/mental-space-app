@@ -1,0 +1,105 @@
+<app-sidebar></app-sidebar>
+<ion-header>
+  <ion-toolbar class="page-background">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-back-button text="Indietro" style="color: white !important;" default-href="/dashboard"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="color:white !important;">
+      {{"LBL_MY_PROFILE" | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="profile page-background">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content style="background-color: white;"
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="{{'PULLING_TEXT' | translate}}"
+      refreshingSpinner="circles"
+      refreshingText="{{'REFRESHING_TEXT' | translate}}">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="container">
+    <div class="top-part">
+      <div class="profile-pic"><img src="{{myInfo.pic}}" class="w-100" /></div>
+      <div class="name">{{myInfo.full_name}}</div>
+      <div class="position">{{myInfo.email}}</div>
+      <!--<div class="counter-part">
+        <ul>
+          <li>
+            <div class="label">Followers</div>
+            <div class="value">200+</div>
+          </li>
+          <li>
+            <div class="label">Following</div>
+            <div class="value">500+</div>
+          </li>
+          <li>
+            <div class="label">Views</div>
+            <div class="value">1500+</div>
+          </li>
+        </ul>
+      </div>-->
+    </div>
+    <div class="activities">
+      <!--<div class="box">
+        <div class="label">Today Steps</div>
+        <div class="value">254</div>
+        <div class="totalvalue">5020</div>
+      </div>-->
+      <form #form="ngForm" (ngSubmit)="submitForm(form)" class="modern" novalidate>
+        <div class="box">
+          <div class="label">{{'NAME' | translate}}</div>
+          <input type="text" class="form-control" required [(ngModel)]="myInfo.f_name" ngControl="f_name" name="f_name">
+
+          <div class="label">{{'SURNAME' | translate}}</div>
+          <input type="text" class="form-control" required [(ngModel)]="myInfo.l_name" ngControl="l_name" name="l_name">
+
+          <div class="label">{{'LBL_CF' | translate}}</div>
+          <input type="text" class="form-control" required [(ngModel)]="myInfo.cf" ngControl="cf" name="cf" maxlength="16">
+
+          <div class="label">{{'DOB' | translate}}</div>
+          <input type="date" class="form-control" required [(ngModel)]="myInfo.dob" ngControl="dob" name="dob">
+
+          <div class="label">{{'HEIGHT_CM' | translate}}</div>
+          <input type="number" class="form-control" required [(ngModel)]="myInfo.height" ngControl="height" name="height">
+
+          <div class="label">{{'WEIGHT_KG' | translate}}</div>
+          <input type="number" class="form-control" required [(ngModel)]="myInfo.weight" ngControl="weight" name="weight">
+
+          <div class="label">{{'PHONE' | translate}}</div>
+          <input type="tel" class="form-control" required [(ngModel)]="myInfo.telefono" ngControl="telefono" name="telefono">
+
+          <div class="label">{{'EM_CONTACT' | translate}}</div>
+          <input type="text" class="form-control" required [(ngModel)]="myInfo.em_nome" ngControl="em_nome" name="em_nome">
+
+          <div class="label">{{'EM_CONTACT_NUMB' | translate}}</div>
+          <input type="tel" class="form-control" required [(ngModel)]="myInfo.em_telefono" ngControl="em_telefono" name="em_telefono">
+
+          <div class="label">{{'MY_ADDRESS' | translate}}</div>
+          <input type="text" class="form-control" required [(ngModel)]="myInfo.indirizzo" ngControl="indirizzo" name="indirizzo">
+        </div>
+        <div class="counter-part">
+          <ul>
+            <li>
+              <div class="value"><ion-button expand="full" type="submit">{{'BTN_UPDATE_INFO' | translate}}</ion-button></div>
+            </li>
+            <li>
+              <div class="value"><ion-button  expand="full" color="warning" (click)="do_logout()">{{'BTN_LOGOUT' | translate}}</ion-button></div>
+            </li>
+            <li>
+              <div class="value"><ion-button color="danger" expand="full" (click)="eliminaAccount()">{{'BTN_DELETE_ACCOUNT' | translate}}</ion-button></div>
+            </li>
+          </ul>
+        </div>
+
+
+
+      </form>
+    </div>
+
+  </div>
+
+</ion-content>
+<app-footerbtn></app-footerbtn>

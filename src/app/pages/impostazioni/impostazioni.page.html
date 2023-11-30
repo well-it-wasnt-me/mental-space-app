@@ -1,0 +1,53 @@
+<app-sidebar></app-sidebar>
+<ion-header>
+  <ion-toolbar class="page-background">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-back-button text="Indietro" style="color: white !important;" default-href="/dashboard"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button style="width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-left: auto;">
+        <div class="text-right"><div class="profile-pic" (click)="profilePage()"><img src="{{user_data.pic}}" style="border-radius: 10px" class="width-100"/></div></div>
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="color:white !important;">
+      {{"LBL_SETTINGS" | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="page-background">
+  <div class="container">
+    <div class="body">
+      <div class="bigtitle">
+        {{"LBL_ACCOUNT" | translate}}
+      </div>
+      <div class="setting-box">
+        <div class="label">{{"LBL_PASS" | translate}}</div>
+        <div class="value">- - - - - -</div>
+        <a class="edit-btn" (click)="changepasswordPage()"><fa-icon icon="pencil-alt"></fa-icon></a>
+      </div>
+      <div class="setting-box">
+        <a (click)="cleanLocalDB()" style="color: #DB2F2F;">{{"LBL_CLEAN_LOCAL_DB" | translate}}</a>
+        <a class="edit-btn" (click)="cleanLocalDB()"><fa-icon icon="cogs"></fa-icon></a>
+      </div>
+      <div class="bigtitle">
+        {{"LBL_PRIVACY" | translate}}
+      </div>
+
+      <div class="setting-box">
+        <a style="color: white;">{{"LBL_DOWNLOAD_DATA" | translate}}</a>
+        <a class="edit-btn" (click)="downloadMyData()"><fa-icon icon="download"></fa-icon></a>
+      </div>
+      <div class="setting-box">
+        <a class="delete-btn">{{"LBL_DELETE_ACCOUNT" | translate}}</a>
+        <a class="edit-btn" (click)="deleteAccount()"><fa-icon icon="delete-left"></fa-icon></a>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<app-footerbtn></app-footerbtn>

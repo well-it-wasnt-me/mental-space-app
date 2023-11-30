@@ -1,0 +1,145 @@
+<app-sidebar></app-sidebar>
+<ion-header>
+  <ion-toolbar class="page-background">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-back-button text="Indietro" style="color: white !important;" default-href="/dashboard"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <div style="color: white !important;"><a id="open-modal-diary" >{{"NEW" | translate}} <fa-icon icon="add"></fa-icon></a></div>
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="color:white !important;">
+      {{"LBL_DIARY" | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="page-background">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content style="background-color: white;"
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="{{'PULLING_TEXT' | translate}}"
+      refreshingSpinner="circles"
+      refreshingText="{{'REFRESHING_TEXT' | translate}}">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="container">
+    <ng-container>
+      <ion-card *ngIf="this.myEntries?.length === 0" class="ion-no-margin profile-card">
+        <ion-card-header>
+          <ion-card-title>{{"STILL_NOTHING" | translate}}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          {{"FEEL_FREE_TO_WRITE" | translate}}
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card *ngFor="let entry of this.myEntries;" >
+        <ion-card-header>
+          <ion-card-title>{{entry.creation_date | date: 'dd/MM/yyyy H:mm:ss'}}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content [innerHTML]="entry.content | slice:0:100">
+        </ion-card-content>
+        <ion-button color="success" id="open-modal-entry" (click)="readEntry(entry.creation_date, entry.content)">{{"READ"|translate}}</ion-button>
+        <ion-button color="danger" (click)="delEntry(entry.diary_id)">{{"DELETE" | translate}}</ion-button>
+      </ion-card>
+
+    </ng-container>
+
+  </div>
+
+
+  <ion-modal trigger="open-modal-diary" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancelModal()">Annulla</ion-button>
+          </ion-buttons>
+          <ion-title>{{"LBL_MY_DIARY" | translate}}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="confirmModal()" [strong]="true">Salva</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+
+        <editor [init]="{
+           language: 'it_IT',
+           language_url: '/assets/l18n/tiny/it.js',
+           plugins: 'lists link image table code wordcount',
+           toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | help'
+          }"
+                apiKey="jp953tqhizd2kjippmdgw3pjrq24qvvkqdrc4vv9jvkj5b8s"
+                initialValue="{{'INITIAL_VALUE_QUILL' | translate}}"
+                [(ngModel)]="myDiary"
+        ></editor>
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="setOpen(false)">{{"CLOSE" | translate }}</ion-button>
+          </ion-buttons>
+          <ion-title>{{"LBL_MY_POST" | translate}}</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-card class="ion-no-margin profile-card">
+          <ion-card-header>
+            <ion-card-title>{{this.entrie.creation_date | date: 'dd/MM/yyyy H:mm:ss'}}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content [innerHTML]="this.entrie.content">
+          </ion-card-content>
+          <ion-button (click)="updateEntry()">{{"UPDATE"|translate}}</ion-button>
+        </ion-card>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+
+  <ion-modal [isOpen]="isModalEditOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="setOpenEdit(false)">{{"CLOSE" | translate}}</ion-button>
+          </ion-buttons>
+          <ion-title>{{"LBL_UPDATE_POST" | translate}}</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-card class="ion-no-margin profile-card">
+          <ion-card-header>
+            <ion-card-title>{{this.entrie.creation_date | date: 'dd/MM/yyyy H:mm:ss'}}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <editor [init]="{
+           language: 'it_IT',
+           language_url: '/assets/l18n/tiny/it.js',
+           plugins: 'lists link image table code wordcount',
+           toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | help'
+          }"
+                    apiKey="jp953tqhizd2kjippmdgw3pjrq24qvvkqdrc4vv9jvkj5b8s"
+                    initialValue="{{this.entrie.content}}"
+                    [(ngModel)]="myDiaryEdit"
+            ></editor>
+          </ion-card-content>
+          <ion-button (click)="updateEntry()">{{"SAVE" | translate}}</ion-button>
+        </ion-card>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
+<app-footerbtn></app-footerbtn>

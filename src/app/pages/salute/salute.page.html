@@ -1,0 +1,48 @@
+<app-sidebar></app-sidebar>
+<ion-header>
+  <ion-toolbar class="page-background">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-back-button text="Indietro" style="color: white !important;" default-href="/dashboard"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="color:white !important;">
+      {{'LBL_HEALTH' | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="profile page-background">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content style="background-color: white;"
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="{{'PULLING_TEXT' | translate}}"
+      refreshingSpinner="circles"
+      refreshingText="{{'REFRESHING_TEXT' | translate}}">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="container">
+    <div class="top-part">
+      <div class="profile-pic"><img src="{{myInfo.pic}}" class="w-100" /></div>
+      <div class="name">{{myInfo.full_name}}</div>
+      <div class="position">{{myInfo.email}}</div>
+      <div class="counter-part">
+        <ul>
+          <li>
+            <div class="label">{{'LBL_STEPS' | translate}}</div>
+            <div class="value">{{mySteps.today}}</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="activities">
+      <div class="box" *ngFor="let health of healthData">
+          <div class="label">{{health['startDate'] | date: 'dd/MM/yyyy H:mm:ss'}} - {{health['endDate'] | date: 'dd/MM/yyyy H:mm:ss'}}</div>
+          <div class="value">{{health['value']}}</div>
+        <!--<div class="totalvalue">5020</div>-->
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>
+<app-footerbtn></app-footerbtn>

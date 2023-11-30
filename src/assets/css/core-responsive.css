@@ -1,0 +1,44 @@
+/*
+* ----------------------------------------------------------------------------------------
+* 1.General media quaries
+* ----------------------------------------------------------------------------------------
+*/
+@media (min-width:320px) and (max-width:767px)
+{
+	.auth-page .logo {
+    margin-top: 25%;
+	}
+	.auth-page .logo .logo-image {
+    width: 150px;
+
+}
+	.auth-page .form-middle
+	{
+		position: absolute;
+top: 60%;
+width: 100%;
+left: 0px;
+right: 0px;
+padding-left: 15px;
+padding-right: 15px;
+transform: translateY(-60%);
+	}
+}
+
+@media (min-height:0px) and (max-height:550px)
+{
+.auth-page .form-middle {
+    position: relative;
+    top: 0px;
+    transform: translateY(0%);
+}	
+.auth-page .footer {
+    position: relative;
+    bottom: 0px;
+    width: 100%;
+    margin-top: 50px;
+}
+.auth-page .footer .right a {
+position: relative;
+}
+}
