@@ -1,4 +1,4 @@
-# Mental Space
+# Mental Space App
 This is a very important matter to me. I know how a mental illness can impact an individual and all those around him/her.
 
 So i decided to start my project "Mental Space" where it aim to help the user to have a better understanding of it's situation but most of all to create a system that would help it's professional helper (Psychiatrist and/or Psychologist) to do better their job.
@@ -34,3 +34,10 @@ The back-end part is reachable [HERE](https://github.com/pazDontExist/mental-spa
 - Since i used this on a personal level (and not shared with anyone else) on the Security standpoint you might find something not properly good (or not in line with the actual security standard). Please, be kind. And just help solve those issues
 - I currently work a lot (my last commit before re-opening this repo was 8 months ago). But i finally managed to find a window to dedicate to this.
 - Most of the things are in italian language (labels mostly). Planning to use i18n format asap.
+
+# Contributing, Issues & Security
+- PLEASE, check CONTRIBUTING.md & CODE_OF_CONDUCT.md - theyt are not the usual boilerplate
+- For now i will dedicate all my weekends to this (actively). So don't go crazy if you may have to wait few days for a reply
+- In case of Security issues, check the effing SECURITY.md
+
+Thank you 
