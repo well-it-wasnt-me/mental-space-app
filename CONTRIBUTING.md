@@ -27,7 +27,7 @@ Before you get lost in this vortex of frustration, here are some guidelines to m
 
 1. **Branch Naming**: Choose a name; i don't care. But if you have to...be smart and use a name that make sense.
 
-2. **Commit Messages**: Oh Boy...Check [HERE](https://github.com/pazDontExist/mental-space-app/blob/master/.gitmessage), please.
+2. **Commit Messages**: Oh Boy...Check [HERE](https://www.conventionalcommits.org/en/v1.0.0/), please.
 
 3. **Testing Torture**: Run tests if you feel like it. Kidding. DO THEM.
 
