@@ -7,6 +7,8 @@ This app, that initially i started as private thing, is now Public with a creati
 
 The back-end part is reachable [HERE](https://github.com/pazDontExist/mental-space-backend)
 
+**WARNING** Actually the backend is under heavy development. To make it work with the actual app here in this repo use the branch "latest_working" on the backend
+
 # STACK
 - Ionic 6
 - Angular
