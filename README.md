@@ -1,3 +1,5 @@
+[![Join Slack](https://img.shields.io/badge/slack%20community-join-blue)](https://join.slack.com/t/opensource-osp5634/shared_invite/zt-292mlna6b-KSXN4TLHojD9pbjyVu1g7g)
+
 # Mental Space App
 This is a very important matter to me. I know how a mental illness can impact an individual and all those around him/her.
 
